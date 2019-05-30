@@ -16,11 +16,11 @@
           </div>
           <div class="input-group" :class="{ active: act_index === 2, error: errors.has('pno') }">
               <label for="PNO">员工编号：</label>
-              <input name="pno" v-validate="{ required: true, max: 12, min: 8 }" @focus="act_index = 2" type="number" id="PNO" v-model="PNO">
+              <input name="pno" v-validate="{ required: true, max: 12, min: 4 }" @focus="act_index = 2" type="number" id="PNO" v-model="PNO">
           </div>
           <div class="input-group" :class="{ active: act_index === 3, error: errors.has('pwd') }">
               <label for="Passwd">用户密码：</label>
-              <input name="pwd" v-validate="{ required: true, max: 12, min: 8 }" @focus="act_index = 3" type="password" id="Passwd" v-model="passwd">
+              <input name="pwd" v-validate="{ required: true, max: 12, min: 6 }" @focus="act_index = 3" type="password" id="Passwd" v-model="passwd">
           </div>
 
           <!-- 保存密码与自动登录 -->
@@ -89,11 +89,17 @@ export default {
         // 弹出等待的遮挡层，防止二次点击
         Indicator.open('正在登录...');
 
-        // axios.post('/login',{},{});
         // 发送ajax请求，axios
-        setTimeout(function(){
+        axios.post('http://localhost:3002/api/login',{
+            CNO: this.cm_code,
+            PNO: this.PNO,
+            Passwd: this.passwd
+        }).then(res => {
+            console.log(res.data);
+        }).catch(e => {
+            console.log('登陆失败',e);
             Indicator.close();
-        },3000);
+        });
       }
   }
 };
