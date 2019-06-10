@@ -5,10 +5,16 @@
 </template>
 
 <script>
-import './lib/common.css';
-export default {};
+import "./lib/common.css";
+export default {
+  name: 'app',
+  data() {
+    return {
+      
+    }
+  },
+  methods: {
+    
+  }
+}
 </script>
-
-<style lang="scss">
-
-</style>
